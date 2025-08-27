@@ -82,7 +82,7 @@ function analyzeSalesData(data, options) {
     data.products.map((product) => [product.sku, product])
   );
   // @TODO: Расчет выручки и прибыли для каждого продавца
-  data.purchase_records.forEach((record) => {
+  data.purchase_records.forEach(record => { 
     // Чек
     const seller = sellerIndex[record.seller_id]; // Продавец
     // Увеличить количество продаж
