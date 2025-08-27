@@ -90,7 +90,7 @@ function analyzeSalesData(data, options) {
     // Увеличить общую сумму всех продаж
     seller.revenue += record.total_amount;
     // Расчёт прибыли для каждого товара
-    record.items.forEach((item) => {
+    record.items.forEach(item => {
       const product = productIndex[item.sku]; // Товар
       // Посчитать себестоимость (cost) товара как product.purchase_price, умноженную на количество товаров из чека
       const cost = product.purchase_price * item.quantity;
