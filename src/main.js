@@ -75,14 +75,23 @@ function analyzeSalesData(data, options) {
     bonus: 0,
   }));
   // @TODO: Индексация продавцов и товаров для быстрого доступа
-  const sellerIndex = Object.fromEntries(
-    sellerStats.map((seller) => [seller.id, seller])
+  const sellerIndex = sellerStats.reduce(
+    (result, seller) => ({
+      ...result,
+      [seller.id]: seller,
+    }),
+    {}
   );
-  const productIndex = Object.fromEntries(
-    data.products.map((product) => [product.sku, product])
+
+  const productIndex = data.products.reduce(
+    (result, product) => ({
+      ...result,
+      [product.sku]: product,
+    }),
+    {}
   );
   // @TODO: Расчет выручки и прибыли для каждого продавца
-  data.purchase_records.forEach(record => { 
+  const purchaseRecords = data.purchase_records.forEach((record) => {
     // Чек
     const seller = sellerIndex[record.seller_id]; // Продавец
     // Увеличить количество продаж
@@ -90,7 +99,7 @@ function analyzeSalesData(data, options) {
     // Увеличить общую сумму всех продаж
     seller.revenue += record.total_amount;
     // Расчёт прибыли для каждого товара
-    record.items.forEach(item => {
+    record.items.forEach((item) => {
       const product = productIndex[item.sku]; // Товар
       // Посчитать себестоимость (cost) товара как product.purchase_price, умноженную на количество товаров из чека
       const cost = product.purchase_price * item.quantity;
