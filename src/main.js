@@ -91,7 +91,7 @@ function analyzeSalesData(data, options) {
     {}
   );
   // @TODO: Расчет выручки и прибыли для каждого продавца
-  const purchaseRecords = data.purchase_records.forEach((record) => {
+  data.purchase_records.forEach((record) => {
     // Чек
     const seller = sellerIndex[record.seller_id]; // Продавец
     // Увеличить количество продаж
